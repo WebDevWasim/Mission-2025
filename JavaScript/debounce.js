@@ -13,7 +13,7 @@ const debounce = (fn, limit) => {
   return function () {
     clearTimeout(startTimer);
     startTimer = setTimeout(() => {
-      fn(...arguments);
+      fn().apply(this, arguments);
     }, limit);
   };
 };

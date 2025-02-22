@@ -30,9 +30,9 @@ Function.prototype.myApply = function (context = {}, args = []) {
 
 //  TODO: Polyfil for BIND
 Function.prototype.myBind = function (context, ...args) {
-  //   const obj = this;
+  //   const fn = this;
   //   return function () {
-  //     obj.call(context, ...args, ...arguments);
+  //     fn.call(context, ...args, ...arguments);
   //   };
 
   // FIXME: Without using CALL/APPLY

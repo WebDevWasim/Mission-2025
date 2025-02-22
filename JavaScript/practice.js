@@ -47,6 +47,15 @@ const accMemberAge = members.reduce((acc, curr) => {
 
 // console.log(accMemberAge);
 
+// TODO: Reduse problem 2: Find max
+const nums = [1, 22, 23, 2, 45, 21];
+const maxNum = nums.reduce((max, curr) => {
+  if (curr > max) max = curr;
+  return max;
+}, 0);
+
+// console.log(maxNum);
+
 // TODO: CALL, APPLY, BIND method
 const text = { txt: "Multiply is" };
 function multiply(x, y) {
