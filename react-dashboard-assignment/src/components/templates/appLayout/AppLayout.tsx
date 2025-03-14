@@ -1,16 +1,17 @@
 import { Outlet } from "react-router";
-import { AppContainer, AppContent, AppHeader } from "./AppLayout.styled";
-import Sidebar from "../../organisms/Sidebar";
+import { AppContainer, AppContent, SidebarContent } from "./AppLayout.styled";
+import Sidebar from "../../organisms/sidebar/Sidebar";
+import Header from "../../organisms/header/Header";
 
 const Layout = () => {
   return (
     <AppContainer>
-      <AppHeader>Header</AppHeader>
+      <Header />
       <AppContent>
         <Sidebar />
-        <div>
+        <SidebarContent>
           <Outlet />
-        </div>
+        </SidebarContent>
       </AppContent>
     </AppContainer>
   );
