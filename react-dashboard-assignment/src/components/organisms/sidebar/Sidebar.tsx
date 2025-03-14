@@ -1,5 +1,5 @@
 import { useState } from "react";
-import routes from "../../../constants/routes";
+import routes from "../../../constants/Routes";
 import {
   SidebarContainer,
   NavItems,
@@ -16,7 +16,7 @@ const Sidebar = () => {
         {routes.map(({ name, path, icon }) => {
           const Icon = icon;
           return (
-            <NavLink to={path} end>
+            <NavLink to={path} end key={name}>
               <Icon />
               {isOpen && <span>{name}</span>}
             </NavLink>

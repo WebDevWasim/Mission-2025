@@ -1,3 +1,4 @@
+import { CSS } from "styled-components/dist/types";
 import {
   ActionButton,
   CardBody,
@@ -19,6 +20,10 @@ type Action = HeaderAction | HeaderActionOptional;
 type CardProps = {
   title: string;
   width?: string;
+  ref:
+    | React.RefObject<HTMLDivElement>
+    | ((instance: HTMLDivElement | null) => void);
+  style: CSS.Properties;
   children: React.ReactNode;
 } & Action;
 
@@ -27,9 +32,11 @@ const Card = ({
   children,
   headerActionIcon,
   handleActionIcon,
+  ref,
+  ...props
 }: CardProps) => {
   return (
-    <CardContainer>
+    <CardContainer ref={ref} {...props}>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         {headerActionIcon && (

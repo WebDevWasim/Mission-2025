@@ -3,7 +3,7 @@ import { AppHeader, SaveButtonGroup, Title } from "./Header.styled";
 import { Button } from "../../atoms/Botton";
 import { FaChartBar, FaRegEdit, FaRegSave } from "react-icons/fa";
 import { useLocation } from "react-router";
-import { dashboardPath } from "../../../constants/routes";
+import { dashboardPath } from "../../../constants/Routes";
 
 const Header = () => {
   const [isEditing, setIsEditing] = useState(false);
