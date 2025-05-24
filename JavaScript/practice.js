@@ -89,30 +89,6 @@ const calc = {
 const total = calc.add(3).multiply(5).subtract(2).add(42).subtract(32);
 // console.log(total.result);
 
-// TODO: Output based question
-var age = 29;
-const person1 = {
-  age: 21,
-  getAge: function () {
-    console.log(this.age); // 25
-
-    // Nested normal Function
-    (function () {
-      console.log(this.age); // 29
-      (function () {
-        console.log(this.age); // 29
-      })();
-    })();
-
-    // Nested Arrow Function
-    (() => {
-      console.log(this.age); // 25
-    })();
-  },
-};
-const person2 = { age: 25 };
-// person1.getAge.call(person2);
-
 // TODO: CURRYING Example and benifit
 const execute = (operation) => {
   return (a) => {
@@ -207,3 +183,176 @@ const computeAmount = () => {
 // console.log(
 //   computeAmount().lakh(34).crore(12).lakh(2).thousand(2).lakh(13).value()
 // );
+
+let num = 0;
+function random() {
+  if (num === 0) {
+    let num = 1;
+    console.log(num);
+  }
+  console.log(num);
+}
+// console.log(num);
+// random();
+
+// TODO: SUM of object values
+const sumSalaries = (salaries) => {
+  let totalSalary = 0;
+  Object.values(salaries).forEach((salary) => {
+    console.log(salary);
+  });
+};
+
+let salaries = {
+  John: 100,
+  Pete: 300,
+  Mary: 250,
+};
+// sumSalaries(salaries);
+// console.log(undefined && null);
+
+// TODO: Order the array with top priority | SORT
+
+const defects = [
+  { priority: 1, timestamp: 1234, description: "Abcd" },
+  { priority: 2, timestamp: 1214, description: "Efgh" },
+  { priority: 1, timestamp: 1144, description: "IJkl" },
+  { priority: 3, timestamp: 1212, description: "MNOP" },
+];
+
+const sortedDefects = defects.sort((a, b) => {
+  return a.priority - b.priority || a.timestamp - b.timestamp;
+});
+
+// console.log(sortedDefects);
+
+// TODO: Debounce function
+
+// const search = document.querySelector("#search");
+// search.addEventListener("input", (e) =>
+//   console.log("Normal :" + e.target.value)
+// );
+
+const debounce = (func, wait) => {
+  let prevTime;
+  return (...arg) => {
+    const now = Date.now();
+    if (prevTime && now - prevTime >= wait) {
+      func(...arg);
+      prevTime = now;
+    } else {
+      prevTime = now;
+    }
+  };
+};
+const throttle = (func, wait) => {
+  let prevTime = 0;
+
+  return function () {
+    const now = Date.now();
+    if (now - prevTime >= wait) {
+      func(...arguments);
+      prevTime = now;
+    }
+  };
+};
+
+const log = (e) => console.log("Debounce :" + e.target.value);
+const debouncedLog = debounce(log, 300);
+// search.addEventListener("input", (e) => debouncedLog(e));
+
+// TODO: ladder.up().up().down().showStep().down().showStep(); // shows 1 then 0
+
+const ladder = {
+  step: 0,
+  up() {
+    this.step++;
+    return this;
+  },
+  down() {
+    this.step--;
+    return this;
+  },
+  showStep() {
+    console.log(this.step);
+    return this;
+  },
+};
+
+// ladder.up().up().down().showStep().down().showStep();
+
+// TODO: First missing odd number in a Array
+
+const findFirstMissingOddNumber = (arr = []) => {
+  for (let i = arr[0] + 2; i < arr[arr.length - 1]; i = i + 2) {
+    if (arr.indexOf(i) < 0) return i;
+  }
+};
+
+// const nums = [5, 7, 11, 15, 17];
+// console.log(findFirstMissingOddNumber(nums));
+
+// Input-Output question
+
+const input = [2, 7, 11, 4, -2];
+
+const sumOfInput = input.reduce((sum, curr) => {
+  sum += curr;
+  return sum;
+}, 0);
+
+const output = input.map((num) => sumOfInput - num);
+
+// console.log({ input, output });
+
+// TODO: Itrate a Object
+
+for (let item in salaries) {
+  // console.log(salaries[item]);
+}
+
+// Debounce function
+const searchInput = document.querySelector("#search");
+const normalSearchNode = document.querySelector("#normalSearch");
+const debouncedSearchNode = document.querySelector("#debouncedSearch");
+const throttledSearchNode = document.querySelector("#throttledSearch");
+
+const onInputChange = (val) => {
+  normalSearchNode.textContent = val;
+};
+const onDebouncedInputChange = (val) => {
+  debouncedSearchNode.textContent = val;
+};
+const onThrottledInputChange = (val) => {
+  throttledSearchNode.textContent = val;
+};
+
+const debounceFunc = (func, wait) => {
+  let timer;
+
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func(...args);
+    }, wait);
+  };
+};
+const debouncedSearch = debounceFunc(onDebouncedInputChange, 300);
+
+const throttleFunc = (func, wait) => {
+  let prevTime = 0;
+  return function () {
+    const currTime = Date.now();
+    if (currTime - prevTime >= wait) {
+      func(...arguments);
+      prevTime = currTime;
+    }
+  };
+};
+const throttledSearch = throttleFunc(onThrottledInputChange, 300);
+
+// searchInput.addEventListener("input", (e) => {
+//   onInputChange(e.target.value);
+//   debouncedSearch(e.target.value);
+//   throttledSearch(e.target.value);
+// });

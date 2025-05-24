@@ -1,11 +1,12 @@
 import { createContext } from "react";
+import { Product } from "../../components/products/Products";
 
-export const initialCart = {
-  cartItems: [],
-  addItem: () => {},
-  removeItem: () => {},
+type CartContextProps = {
+  cartItems: Product[];
+  addItem: (product: Product) => void;
+  removeItem: (id: string) => void;
 };
 
-const CartContext = createContext(initialCart);
+const CartContext = createContext({} as CartContextProps);
 
 export default CartContext;

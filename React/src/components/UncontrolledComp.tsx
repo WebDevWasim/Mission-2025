@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 
 const UncontrolledComp = () => {
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    inputRef?.current.focus();
+    inputRef.current?.focus();
   }, []);
 
   return (

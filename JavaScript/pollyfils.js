@@ -5,10 +5,12 @@ function invite(greeting1, greeting2) {
   );
 }
 //  TODO: Polyfil for CALL
-Function.prototype.myCall = function (context = {}, ...args) {
+Function.prototype.myCall = function (context, ...args) {
   if (typeof this === "function") {
+    context = context || window;
     context.fn = this;
-    context.fn(...args);
+    delete context.fn;
+    return context.fn(...args);
   } else {
     throw new Error(`${this} is not a Callable`);
   }
@@ -108,6 +110,7 @@ Array.prototype.myReduce = function (callbackFn, initialVal) {
 
   return acc;
 };
+
 const sumArr = arr1.myReduce((acc, curr) => {
   acc += curr;
   return acc;
@@ -118,3 +121,96 @@ const sumArr1 = arr1.reduce((acc, curr) => {
   return acc;
 }, 0);
 // console.log(sumArr, sumArr1);
+
+//TODO: Pollyfils of PROMISE
+
+const p1 = new Promise((resolve, reject) => {
+  reject("P1 Failed");
+  // setTimeout(() => {
+  //   resolve("P1 Passed");
+  // }, 300);
+});
+const p2 = new Promise((resolve, reject) => {
+  // resolve("P2 Success");
+  setTimeout(() => {
+    reject("P2 Failed");
+  }, 300);
+});
+const p3 = new Promise((resolve, reject) => {
+  // reject("P3 Failed");
+  setTimeout(() => {
+    resolve("P3 Passed");
+  }, 500);
+});
+
+// FIXME: Promise.all
+Promise.myAll = function (arr = []) {
+  let counter = 0;
+  return new Promise((resolve, reject) => {
+    const resolveArr = [];
+    arr.forEach((item, index) => {
+      // This is for data type string/number
+      // Promise.resolve(item)
+      item
+        .then((data) => {
+          resolveArr[index] = data;
+          counter++;
+          if (counter === arr.length) resolve(resolveArr);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  });
+};
+
+// FIXME: Promise.race
+Promise.myRace = function (promiseArr = []) {
+  return new Promise((resolve, reject) => {
+    promiseArr.forEach((item) => {
+      console.log(typeof item);
+
+      item
+        .then((data) => {
+          resolve(data);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  });
+};
+
+// FIXME: Promise.any
+Promise.myAny = (promiseArr = []) => {
+  return new Promise((resolve, reject) => {
+    let errCount = 0;
+    promiseArr.forEach((item) => {
+      item
+        .then((data) => {
+          resolve(data);
+        })
+        .catch((err) => {
+          errCount++;
+          if (errCount === promiseArr.length)
+            reject("AggregateError: All promises were rejected");
+        });
+    });
+  });
+};
+
+Promise.any([p1, p2, p3])
+  .then((data) => {
+    console.log("Then", data);
+  })
+  .catch((err) => {
+    console.log("Catch", err);
+  });
+
+Promise.myAny([p1, p2, p3])
+  .then((data) => {
+    console.log("MyThen", data);
+  })
+  .catch((err) => {
+    console.log("MyCatch", err);
+  });

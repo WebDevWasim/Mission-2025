@@ -1,6 +1,10 @@
 import { useState, useEffect, useCallback, memo } from "react";
 
-const Child = ({ increment }) => {
+type ChildProps = {
+  increment: () => void;
+};
+
+const Child = ({ increment }: ChildProps) => {
   console.log("Child Rendered");
 
   return <button onClick={increment}>Increment</button>;
@@ -9,7 +13,7 @@ const Child = ({ increment }) => {
 const ChildCom = memo(Child);
 
 const Counter = () => {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState<number>(0);
   const [count1, setCount1] = useState(0);
 
   useEffect(() => {
