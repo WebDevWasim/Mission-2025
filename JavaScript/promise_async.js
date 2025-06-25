@@ -42,8 +42,10 @@ promiseAnySuccess
 
 async function getUser() {
   const data = await fetch(" https://api.github.com/users/webdevwasim");
-  console.log("res");
+  console.log(data);
+  console.log("data");
   const res = await data.json();
   console.log(res);
+  console.log("res");
 }
 // getUser();

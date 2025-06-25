@@ -1,4 +1,3 @@
-// TODO: Debounce
 const input = document.querySelector("#search");
 
 // const debounceFn = _.throttle(() => {
@@ -7,6 +6,7 @@ const input = document.querySelector("#search");
 //   console.log(times);
 // }, 2000);
 
+// TODO: Debounce
 const debounce = (fn, limit) => {
   let startTimer;
 
@@ -18,22 +18,7 @@ const debounce = (fn, limit) => {
   };
 };
 
-// FIXME: Without setTimeout
-const debounceAlt = (fn, limit) => {
-  let prevTime;
-
-  return function () {
-    let time = Date.now();
-    if (prevTime) {
-      if (time - prevTime >= limit) {
-        fn(...arguments);
-      }
-    } else {
-      prevTime = time;
-    }
-  };
-};
-
+// TODO: Throttle
 const throttle = (fn, limit) => {
   let prevTime = 0;
 
